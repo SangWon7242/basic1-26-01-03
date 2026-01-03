@@ -2,6 +2,7 @@ package com.sbs.app1.domain.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller // @Controller : 스프링부트한테 해당 클래스는 컨트롤러의 역할이라고 알려줌
@@ -48,7 +49,11 @@ public class HomeController {
   @GetMapping("/home/plus")
   @ResponseBody
   // 스프링부트는 쿼리스트링의 파라미터를 함수 매개변수로 받을 수 있다.
-  public int showPlus(int a, int b) {
+  // @RequestParam 생략이 가능하다.
+  // 파라미터의 기본값이 있는 경우 @RequestParam 생략이 불가능하다.
+  // 기본값은 무조건 문자열이다.
+  // 숫자 모양의 문자열은 스프링부트가 알아서 형변환 해서 처리해준다.
+  public int showPlus(int a, @RequestParam(defaultValue = "0") int b) {
     return a + b;
   }
 }
