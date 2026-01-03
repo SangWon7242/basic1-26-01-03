@@ -8,7 +8,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
   @GetMapping("/")
   @ResponseBody // 응답한 결과물을 body 에 보냄
-  public String home() {
+  public String main() {
     return "Hello!";
+  }
+
+  @GetMapping("/home/main1")
+  @ResponseBody
+  public String home1() {
+    return "안녕하세요.";
+  }
+
+  @GetMapping("/home/main2")
+  @ResponseBody
+  public String home2() {
+    return "반갑습니다.";
   }
 }
