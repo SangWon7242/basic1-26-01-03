@@ -3,17 +3,20 @@ package com.sbs.app1.domain.member.service;
 import com.sbs.app1.domain.member.entity.Member;
 import com.sbs.app1.domain.member.repository.MemberRepository;
 import com.sbs.app1.global.base.rsData.RsData;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-
+// @Component :아래 클래스는 Ioc 컨테이너에 의해 생사소멸이 관리된다.
 @Service
+@AllArgsConstructor
 public class MemberService {
-  private MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
-  public MemberService() {
-    memberRepository = new MemberRepository();
+  /*
+  public MemberService(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
   }
+  */
 
   public RsData tryLogin(String username, String password) {
     Member member = memberRepository.findByUsername(username);
