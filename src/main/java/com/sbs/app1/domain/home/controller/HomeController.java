@@ -1,7 +1,8 @@
 package com.sbs.app1.domain.home.controller;
 
+import com.sbs.app1.domain.member.entity.Member;
+import com.sbs.app1.domain.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
@@ -18,12 +19,15 @@ public class HomeController {
   public int val;
   public List<Person> personList;
 
+  private MemberService memberService;
+
   public HomeController() {
     val = -1;
     personList = new ArrayList<>();
+    memberService = new MemberService();
   }
 
-  @GetMapping("/")
+  @GetMapping("/home/")
   public String main() {
     return "Hello!";
   }
@@ -137,8 +141,8 @@ public class HomeController {
   }
 
   @GetMapping("/home/returnMember")
-  public Member showReturnMember() {
-    Member member = new Member(
+  public Member1 showReturnMember() {
+    Member1 member = new Member1(
         "홍길동",
         30,
         "평택시",
@@ -152,8 +156,8 @@ public class HomeController {
   }
 
   @GetMapping("/home/returnMember2")
-  public Member showReturnMember2() {
-    Member member2 = new Member(
+  public Member1 showReturnMember2() {
+    Member1 member2 = new Member1(
         "홍길동",
         30,
         "평택시",
@@ -355,9 +359,14 @@ public class HomeController {
     int age = Integer.parseInt(req.getParameter("age"));
     resp.getWriter().append("Hello, I'm %d years old.".formatted(age));
   }
+
+  @GetMapping("/home/user1")
+  public Member showUser1() {
+    return memberService.findByUsername("user1");
+  }
 }
 
-class Member {
+class Member1 {
   private String name;
   private int age;
   private String address;
@@ -422,7 +431,7 @@ class Member {
     this.hobbies = hobbies;
   }
 
-  public Member(String name, int age, String address, boolean isMarried, String phone, String email, List<String> hobbies) {
+  public Member1(String name, int age, String address, boolean isMarried, String phone, String email, List<String> hobbies) {
     this.name = name;
     this.age = age;
     this.address = address;
