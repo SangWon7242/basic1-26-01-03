@@ -2,6 +2,7 @@ package com.sbs.app1.domain.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,6 +55,13 @@ public class HomeController {
   // 기본값은 무조건 문자열이다.
   // 숫자 모양의 문자열은 스프링부트가 알아서 형변환 해서 처리해준다.
   public int showPlus(int a, @RequestParam(defaultValue = "0") int b) {
+    return a + b;
+  }
+
+  // /home/plus2/1/2
+  @GetMapping("/home/plus2/{a}/{b}")
+  @ResponseBody
+  public int showPlus2(@PathVariable int a, @PathVariable int b) {
     return a + b;
   }
 }
