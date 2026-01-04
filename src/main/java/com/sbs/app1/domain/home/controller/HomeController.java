@@ -285,6 +285,39 @@ public class HomeController {
     return "%d번 사람이 삭제되었습니다.".formatted(id);
   }
 
+  @GetMapping("/home/modifyPerson")
+  public String modifyPerson(int id, String name, int age) {
+
+    /*
+    Person foundPerson = null;
+
+    for(Person person : personList) {
+      if(person.getId() == id) {
+        foundPerson = person;
+        break;
+      }
+    }
+
+    if(foundPerson == null) return "%d번 사람은 존재하지 않습니다.".formatted(id);
+
+    foundPerson.setName(name);
+    foundPerson.setAge(age);
+     */
+
+    Person person = personList.stream()
+        .filter(p -> p.getId() == id)
+        .findFirst()
+        .orElse(null);
+
+    if(person == null) return "%d번 사람은 존재하지 않습니다.".formatted(id);
+
+    person.setName(name);
+    person.setAge(age);
+
+    return "%d번 사람이 수정되었습니다.".formatted(id);
+  }
+
+
   @GetMapping("/home/showPeople")
   public List<Person> showPeople() {
     return personList;
