@@ -1,15 +1,25 @@
 package com.sbs.app1.domain.home.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import lombok.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController // @Controller + @ResponseBody
 public class HomeController {
-  public int val = -1;
+  public int val;
+  public List<Person> personList;
+
+  public HomeController() {
+    val = -1;
+    personList = new ArrayList<>();
+  }
 
   @GetMapping("/")
   public String main() {
@@ -217,6 +227,21 @@ public class HomeController {
 
     return memberList;
   }
+
+
+  @GetMapping("/home/addPerson")
+  public String addPerson(String name, int age) {
+    Person p = new Person(name, age);
+
+    personList.add(p);
+
+    return "%d번 사람이 추가되었습니다.".formatted(p.getId());
+  }
+
+  @GetMapping("/home/showPeople")
+  public List<Person> showPeople() {
+    return personList;
+  }
 }
 
 class Member {
@@ -319,4 +344,24 @@ class Member2 {
   private String phone;
   private String email;
   private List<String> hobbies;
+}
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+class Person {
+  private static int lastId;
+  private int id;
+  private String name;
+  private int age;
+
+  static {
+    lastId = 0;
+  }
+
+  public Person(String name, int age) {
+    this(++lastId, name, age);
+  }
 }
