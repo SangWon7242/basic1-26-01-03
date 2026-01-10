@@ -1,0 +1,15 @@
+<meta charset="UTF-8">
+
+<h1>마이페이지</h1>
+
+<div>
+  회원번호 : [[${member.id}]]
+</div>
+
+<!--
+<div>
+  아이디 : [[${member.username}]]
+</div>
+-->
+<!-- <div th:text="${member.username}"></div> -->
+<div th:text="|아이디 : ${member.username}|"></div>

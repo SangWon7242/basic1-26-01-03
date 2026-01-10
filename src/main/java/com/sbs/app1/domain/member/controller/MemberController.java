@@ -4,8 +4,10 @@ import com.sbs.app1.domain.member.entity.Member;
 import com.sbs.app1.domain.member.service.MemberService;
 import com.sbs.app1.global.base.rq.Rq;
 import com.sbs.app1.global.base.rsData.RsData;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,5 +76,15 @@ public class MemberController {
   @GetMapping("/session")
   public String showSession() {
     return rq.getSessionDebugInfo().replaceAll("\n", "<br>");
+  }
+
+  @GetMapping("/myaccount")
+  public String showMyAccount(Model model) {
+    long loginedMemberId = rq.getLoginedMember();
+
+    Member member = memberService.findById(loginedMemberId);
+    model.addAttribute("member", member);
+
+    return "member/myaccount";
   }
 }
