@@ -7,3 +7,6 @@ spring:
     output:
       ansi:
         enabled: always
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/ # 템플릿 파일 경로

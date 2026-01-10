@@ -5,11 +5,13 @@ import com.sbs.app1.domain.member.service.MemberService;
 import com.sbs.app1.global.base.rq.Rq;
 import com.sbs.app1.global.base.rsData.RsData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
@@ -17,6 +19,12 @@ public class MemberController {
   private final Rq rq;
 
   @GetMapping("/login")
+  public String login() {
+    return "member/login";
+  }
+
+  @ResponseBody
+  @PostMapping("/login")
   public RsData login(String username, String password) {
 
     if (username == null || username.trim().isEmpty()) {
