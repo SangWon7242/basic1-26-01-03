@@ -47,6 +47,7 @@ public class MemberController {
     return rsData;
   }
 
+  @ResponseBody
   @GetMapping("/logout")
   public RsData logout() {
     boolean cookieRemoved = rq.removeSession("loginedMemberId");
@@ -58,6 +59,7 @@ public class MemberController {
     return RsData.of("S-1", "로그아웃 되었습니다.");
   }
 
+  @ResponseBody
   @GetMapping("/me")
   public RsData showMe() {
     long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0L);
@@ -73,6 +75,7 @@ public class MemberController {
     return RsData.of("S-1", "당신의 username(은)는 '%s' 입니다.".formatted(member.getUsername()));
   }
 
+  @ResponseBody
   @GetMapping("/session")
   public String showSession() {
     return rq.getSessionDebugInfo().replaceAll("\n", "<br>");

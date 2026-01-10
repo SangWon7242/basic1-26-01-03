@@ -2,14 +2,13 @@
 
 <h1>마이페이지</h1>
 
-<div>
-  회원번호 : [[${member.id}]]
+<div th:if="${member != null}">
+  <div>
+    회원번호 : [[${member.id}]]
+  </div>
+  <div th:text="|아이디 : ${member.username}|"></div>
 </div>
 
-<!--
-<div>
-  아이디 : [[${member.username}]]
+<div th:if="${member == null}">
+  <span>로그인 후 이용해주세요.</span>
 </div>
--->
-<!-- <div th:text="${member.username}"></div> -->
-<div th:text="|아이디 : ${member.username}|"></div>
