@@ -4,26 +4,20 @@ import com.sbs.app1.domain.member.entity.Member;
 import com.sbs.app1.domain.member.service.MemberService;
 import com.sbs.app1.global.base.rq.Rq;
 import com.sbs.app1.global.base.rsData.RsData;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-
 @RestController
 @RequestMapping("/member")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberController {
   private final MemberService memberService;
+  private final Rq rq;
 
   @GetMapping("/login")
-  public RsData login(String username, String password, HttpServletRequest req, HttpServletResponse resp) {
-    Rq rq = new Rq(req, resp);
+  public RsData login(String username, String password) {
 
     if (username == null || username.trim().isEmpty()) {
       return RsData.of("F-3", "아이디를 입력해주세요.");
@@ -37,17 +31,15 @@ public class MemberController {
 
     if (rsData.isSuccess()) {
       Member member = (Member) rsData.getData();
-      rq.setCookie("loginedMemberId", member.getId());
+      rq.setSession("loginedMemberId", member.getId());
     }
 
     return rsData;
   }
 
   @GetMapping("/logout")
-  public RsData logout(HttpServletRequest req, HttpServletResponse resp) {
-    Rq rq = new Rq(req, resp);
-
-    boolean cookieRemoved = rq.removeCookie("loginedMemberId");
+  public RsData logout() {
+    boolean cookieRemoved = rq.removeSession("loginedMemberId");
 
     if(!cookieRemoved) {
       return RsData.of("F-1", "로그아웃에 실패했습니다. 이미 로그아웃 상태입니다.");
@@ -57,9 +49,8 @@ public class MemberController {
   }
 
   @GetMapping("/me")
-  public RsData showMe(HttpServletRequest req, HttpServletResponse resp) {
-    Rq rq = new Rq(req, resp);
-    long loginedMemberId = rq.getCookieAsLong("loginedMemberId", 0);
+  public RsData showMe() {
+    long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0L);
 
     boolean isLogined = loginedMemberId > 0;
 
@@ -70,5 +61,10 @@ public class MemberController {
     Member member = memberService.findById(loginedMemberId);
 
     return RsData.of("S-1", "당신의 username(은)는 '%s' 입니다.".formatted(member.getUsername()));
+  }
+
+  @GetMapping("/session")
+  public String showSession() {
+    return rq.getSessionDebugInfo().replaceAll("\n", "<br>");
   }
 }
