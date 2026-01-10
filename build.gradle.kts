@@ -28,7 +28,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-  testImplementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
   compileOnly("org.projectlombok:lombok")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   annotationProcessor("org.projectlombok:lombok")
