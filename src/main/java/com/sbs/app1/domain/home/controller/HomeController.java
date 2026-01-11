@@ -29,7 +29,7 @@ public class HomeController {
     personList = new ArrayList<>();
   }
 
-  @GetMapping("/home/")
+  @GetMapping("/home")
   public String main() {
     return "Hello!";
   }
