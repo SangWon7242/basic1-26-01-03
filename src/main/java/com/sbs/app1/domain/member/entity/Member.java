@@ -25,6 +25,9 @@ public class Member {
 
   @LastModifiedBy
   private LocalDateTime modifyDate;
+
+  @Column(unique = true) // unique index
   private String username;
   private String password;
+  private String name;
 }

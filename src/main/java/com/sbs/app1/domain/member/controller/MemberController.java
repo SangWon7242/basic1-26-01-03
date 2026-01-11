@@ -19,6 +19,31 @@ public class MemberController {
   private final MemberService memberService;
   private final Rq rq;
 
+  @GetMapping("/join")
+  public String join() {
+    return "member/join";
+  }
+
+  @ResponseBody
+  @PostMapping("/join")
+  public RsData join(String username, String password, String name) {
+    if (username == null || username.trim().isEmpty()) {
+      return RsData.of("F-2", "아이디를 입력해주세요.");
+    }
+
+    if (password == null || password.trim().isEmpty()) {
+      return RsData.of("F-3", "비밀번호를 입력해주세요.");
+    }
+
+    if (name == null || name.trim().isEmpty()) {
+      return RsData.of("F-4", "이름을 입력해주세요.");
+    }
+
+    RsData rsData = memberService.tryJoin(username, password, name);
+
+    return rsData;
+  }
+
   @GetMapping("/login")
   public String login() {
     return "member/login";
