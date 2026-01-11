@@ -1,25 +1,30 @@
 package com.sbs.app1.domain.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
-  private static long lastId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
+  @CreatedDate
+  private LocalDateTime createDate;
+
+  @LastModifiedBy
+  private LocalDateTime modifyDate;
   private String username;
   private String password;
-
-  static {
-    lastId  = 0;
-  }
-
-  public Member(String username, String password) {
-    this(++lastId, username, password);
-  }
 }

@@ -4,7 +4,6 @@ import com.sbs.app1.domain.member.entity.Member;
 import com.sbs.app1.domain.member.service.MemberService;
 import com.sbs.app1.global.base.rq.Rq;
 import com.sbs.app1.global.base.rsData.RsData;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
