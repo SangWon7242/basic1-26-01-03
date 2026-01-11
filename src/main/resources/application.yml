@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: app1
+  profiles:
+    active: dev
   datasource:
     output:
       ansi:
