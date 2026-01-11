@@ -13,15 +13,13 @@ spring:
     password: sbsst123414
   jpa:
     hibernate:
-      ddl-auto: create # DB 테이블 자동생성
+      ddl-auto: update # DB 테이블 자동생성
     show-sql: true # SQL 출력
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
         use_sql_comments: true
-
-
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/ # 템플릿 파일 경로
