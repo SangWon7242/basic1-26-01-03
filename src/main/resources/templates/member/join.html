@@ -1,13 +1,67 @@
 <meta charset="UTF-8">
 
+<script>
+    function joinSubmit__done(form) {
+        form.username.value = form.username.value.trim();
+
+        if (form.username.value.length === 0) {
+            alert("아이디를 입력해주세요.");
+            form.username.focus();
+            return;
+        }
+
+        form.password.value = form.password.value.trim();
+
+        if (form.password.value.length === 0) {
+            alert("비밀번호 입력해주세요.");
+            form.password.focus();
+            return;
+        }
+
+        if (form.password.value.length < 4) {
+            alert("비밀번호를 4자 이상 입력해주세요.");
+            form.password.focus();
+            return;
+        }
+
+        form.passwordConfirm.value = form.passwordConfirm.value.trim();
+
+        if (form.passwordConfirm.value.length === 0) {
+            alert("비밀번호 확인을 입력해주세요.");
+            form.passwordConfirm.focus();
+            return;
+        }
+
+        if (form.passwordConfirm.value !== form.password.value) {
+            alert("비밀번호 일치하지 않습니다.");
+            form.passwordConfirm.focus();
+            form.passwordConfirm.value = "";
+            return;
+        }
+
+        form.name.value = form.name.value.trim();
+
+        if (form.name.value.length === 0) {
+            alert("이름을 입력해주세요.");
+            form.name.focus();
+            return;
+        }
+
+        form.submit();
+    }
+</script>
+
 <h1>회원가입</h1>
 
-<form action="join" method="POST">
+<form onsubmit="joinSubmit__done(this); return false;" action="join" method="POST">
   <div>
-    <input type="text" name="username" placeholder="아이디입력">
+    <input type="text" name="username" placeholder="아이디 입력">
   </div>
   <div>
-    <input type="password" name="password" placeholder="비밀번호입력">
+    <input type="password" name="password" placeholder="비밀번호 입력">
+  </div>
+  <div>
+    <input type="password" name="passwordConfirm" placeholder="비밀번호 확인 입력">
   </div>
   <div>
     <input type="text" name="name" placeholder="이름">
